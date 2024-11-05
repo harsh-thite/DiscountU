@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Categories - Student Discounts{% endblock %}
+{% block header_title %}Student Discount Categories{% endblock %}
+
+{% block content %}
+<div class="search-container mb-4">
+    <input type="text" id="categorySearch" class="search-input" placeholder="Search categories...">
+</div>
+
+<div class="categories-grid">
+    {% for category in categories %}
+    <div class="category-card" onclick="window.location.href='{% url 'category_detail' category.id %}'">
+        <div class="category-icon">
+            <!-- You can add category-specific icons here -->
+            {% if category.icon %}
+                <img src="{{ category.icon.url }}" alt="{{ category.name }}">
+            {% else %}
+                <div class="placeholder-icon">{{ category.name|make_list|first }}</div>
+            {% endif %}
+        </div>
+        <h2 class="category-title">{{ category.name }}</h2>
+        <p class="category-description">{{ category.description }}</p>
+        <div class="category-stats">
+            <span>{{ category.discount_count }} offers</span>
+            <span>Up to {{ category.max_discount }}% off</span>
+        </div>
+        <button class="primary">Browse Offers</button>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <h3>No categories found</h3>
+        <p>Please check back later for new discount categories.</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+document.getElementById('categorySearch').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.category-card');
+
+    cards.forEach(card => {
+        const title = card.querySelector('.category-title').textContent.toLowerCase();
+        const description = card.querySelector('.category-description').textContent.toLowerCase();
+
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

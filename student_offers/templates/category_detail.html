@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }} Discounts{% endblock %}
+
+{% block content %}
+<div class="category-detail-container">
+    <div class="category-header">
+        <div class="category-info">
+            <h1>{{ category.name }}</h1>
+            <p>{{ category.description }}</p>
+        </div>
+        <div class="category-stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ discounts.count }}</span>
+                <span class="stat-label">Available Discounts</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search discounts...">
+            <i data-lucide="search"></i>
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="highest">Highest Discount</button>
+            <button class="filter-btn" data-filter="newest">Newest</button>
+        </div>
+    </div>
+
+    <!-- Discounts Grid -->
+    <div class="discounts-grid">
+        {% for discount in discounts %}
+        <div class="discount-card">
+            <div class="discount-header">
+                <h3>{{ discount.company_name }}</h3>
+                {% if discount.is_verified %}
+                <span class="verified-badge">
+                    <i data-lucide="check-circle"></i> Verified
+                </span>
+                {% endif %}
+            </div>
+
+            <h4>{{ discount.title }}</h4>
+            <p>{{ discount.description|truncatewords:30 }}</p>
+
+            {% if discount.discount_percentage %}
+            <div class="discount-amount">
+                <span class="percentage">{{ discount.discount_percentage }}%</span>
+                <span class="off">OFF</span>
+            </div>
+            {% endif %}
+
+            <div class="requirements">
+                <h5>Requirements:</h5>
+                <p>{{ discount.requirements }}</p>
+            </div>
+
+            <div class="discount-actions">
+                <button onclick="window.location.href='{{ discount.website_url }}'" class="primary">
+                    Get Discount
+                </button>
+                <button class="bookmark-btn secondary" data-discount-id="{{ discount.id }}">
+                    <i data-lucide="bookmark"></i>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

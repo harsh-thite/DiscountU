@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard - Student Discounts{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h1>Welcome, {{ request.user.username }}! 👋</h1>
+        <p class="text-light">Find the best student discounts across different categories</p>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="categories-grid">
+        {% for category in categories %}
+        <div class="category-card" onclick="window.location.href='{% url 'category_detail' category.id %}'">
+            <div class="category-icon">
+                <i data-lucide="{{ category.icon }}"></i>
+            </div>
+            <h2>{{ category.name }}</h2>
+            <p>{{ category.description }}</p>
+            <div class="discount-count">
+                {{ category.discounts.count }} discounts available
+            </div>
+            <button class="primary">Browse Discounts</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Featured Discounts -->
+    <div class="featured-section">
+        <h2>Featured Discounts</h2>
+        <div class="featured-discounts">
+            {% for discount in featured_discounts %}
+            <div class="discount-card">
+                <div class="discount-header">
+                    <h3>{{ discount.title }}</h3>
+                    {% if discount.discount_percentage %}
+                    <span class="discount-badge">{{ discount.discount_percentage }}% OFF</span>
+                    {% endif %}
+                </div>
+                <p>{{ discount.description|truncatewords:20 }}</p>
+                <div class="discount-footer">
+                    <button onclick="window.location.href='{% url 'discount_detail' discount.id %}'" class="secondary">
+                        View Details
+                    </button>
+                    <button class="bookmark-btn" data-discount-id="{{ discount.id }}">
+                        <i data-lucide="bookmark"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+{% endblock %}
