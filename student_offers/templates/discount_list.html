@@ -1,60 +1,18 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discount List</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="{% static 'js/script.js' %}" defer></script>
-</head>
-<body>
-    <header>
-        <h1>Discount Offers</h1>
-        <nav>
-            <button id="loginBtn">Login</button>
-            <button id="registerBtn">Register</button>
-        </nav>
-    </header>
+{% extends "base.html" %}
 
-    <main class="container">
-        <h2>Available Discounts</h2>
-        {% for discount in discounts %}
+{% block title %}Available Discounts{% endblock %}
+{% block header_title %}Available Discounts{% endblock %}
+
+{% block content %}
+    <div class="categories-grid">
+        {% for category in categories %}
             <div class="discount-card">
-                <h3>{{ discount.name }}</h3>
-                <p>{{ discount.description }}</p>
-                <p><strong>Discount: {{ discount.discount_percentage }}%</strong></p>
+                <h2 class="mb-2">{{ category.name }}</h2>
+                <p class="mb-4 text-light">Explore amazing student discounts in this category</p>
+                <button onclick="window.location.href='{% url 'category_detail' category.id %}'" class="primary">
+                    View Offers
+                </button>
             </div>
         {% endfor %}
-    </main>
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="loginClose">&times;</span>
-            <h2>Login</h2>
-            <form method="post">
-                {% csrf_token %}
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-        </div>
     </div>
-
-    <!-- Register Modal -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="registerClose">&times;</span>
-            <h2>Register</h2>
-            <form method="post">
-                {% csrf_token %}
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Register</button>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
+{% endblock %}
