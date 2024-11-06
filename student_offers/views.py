@@ -3,20 +3,14 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
-from django.db.models import Q, Count, Prefetch
+from django.db.models import Q, Count, F
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.utils.text import slugify
 
 from .models import Category, Discount, UserBookmark, UserProfile, DiscountClick
-from .forms import DiscountSearchForm
-from .forms import CustomAuthenticationForm
-from .forms import CustomUserCreationForm, UserProfileForm
-
-
-
+from .forms import DiscountSearchForm, DiscountSubmissionForm, CustomAuthenticationForm, CustomUserCreationForm, UserProfileForm
 
 class AuthMixin:
     """Mixin for authentication-related functionality"""
@@ -118,12 +112,12 @@ def dashboard_view(request):
 
 
 def discount_list(request):
-    form = DiscountSearchForm(request.GET)
-    discounts = Discount.objects.select_related('category').filter(
+    discounts = Discount.objects.filter(
         status='active',
         valid_until__gt=timezone.now()
-    )
+    ).select_related('category')
 
+    form = DiscountSearchForm(request.GET)
     if form.is_valid():
         search_query = form.cleaned_data.get('query')
         category = form.cleaned_data.get('category')
@@ -148,16 +142,15 @@ def discount_list(request):
         elif sort_by == 'ending_soon':
             discounts = discounts.order_by('valid_until')
 
-    paginator = Paginator(discounts, 12)  # Show 12 discounts per page
+    paginator = Paginator(discounts, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {
+    return render(request, 'discount_list.html', {
         'form': form,
         'page_obj': page_obj,
-        'total_count': paginator.count,
-    }
-    return render(request, 'discount_list.html', context)
+        'total_count': paginator.count
+    })
 
 
 def category_list(request):
@@ -193,16 +186,15 @@ def category_detail(request, slug):
             ).values_list('discount_id', flat=True)
         )
 
-    paginator = Paginator(discounts, 9)  # Show 9 discounts per page
+    paginator = Paginator(discounts, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {
+    return render(request, 'category_detail.html', {
         'category': category,
         'page_obj': page_obj,
-        'bookmarked_discounts': bookmarked_discounts,
-    }
-    return render(request, 'category_detail.html', context)
+        'bookmarked_discounts': bookmarked_discounts
+    })
 
 
 @login_required
@@ -217,9 +209,9 @@ def toggle_bookmark(request, discount_id):
 
         if not created:
             bookmark.delete()
-            discount.saves_count = models.F('saves_count') - 1
+            discount.saves_count = F('saves_count') - 1
         else:
-            discount.saves_count = models.F('saves_count') + 1
+            discount.saves_count = F('saves_count') + 1
 
         discount.save()
 
@@ -247,7 +239,7 @@ def track_discount_click(request, discount_id):
         )
 
         # Update click count
-        discount.clicks_count = models.F('clicks_count') + 1
+        discount.clicks_count = F('clicks_count') + 1
         discount.save()
 
         return JsonResponse({'status': 'success'})
@@ -272,5 +264,15 @@ def user_profile(request):
     return render(request, 'profile.html', {'form': form})
 
 
-def profile():
-    return None
+def submit_discount(request):
+    if request.method == 'POST':
+        form = DiscountSubmissionForm(request.POST)
+        if form.is_valid():
+            discount = form.save(commit=False)
+            discount.status = 'coming_soon'
+            discount.save()
+            messages.success(request, "Thank you for submitting your discount. It will be reviewed and published soon.")
+            return redirect('home')
+    else:
+        form = DiscountSubmissionForm()
+    return render(request, 'submit_discount.html', {'form': form})

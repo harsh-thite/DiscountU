@@ -11,5 +11,5 @@ urlpatterns = [
     path('discounts/', views.discount_list, name='discount_list'),
     path('category/', views.category_list, name='category_listing'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
-    path('profile/', views.profile, name='profile'),
+    path('profile/', views.user_profile, name='profile'),
 ]
