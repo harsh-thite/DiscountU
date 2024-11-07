@@ -10,7 +10,7 @@
 
 <div class="categories-grid">
     {% for category in categories %}
-    <div class="category-card" onclick="window.location.href='{% url 'category_detail' category.id %}'">
+    <div class="category-card" onclick="window.location.href='{% url 'category_detail' slug=category.slug %}'">
         <div class="category-icon">
             <!-- You can add category-specific icons here -->
             {% if category.icon %}
