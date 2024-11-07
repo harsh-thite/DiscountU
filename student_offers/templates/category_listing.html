@@ -12,11 +12,11 @@
     {% for category in categories %}
     <div class="category-card" onclick="window.location.href='{% url 'category_detail' slug=category.slug %}'">
         <div class="category-icon">
-            <!-- You can add category-specific icons here -->
             {% if category.icon %}
                 <img src="{{ category.icon.url }}" alt="{{ category.name }}">
             {% else %}
-                <div class="placeholder-icon">{{ category.name|make_list|first }}</div>
+                <!-- You can display a default image here instead of the letter -->
+                <img src="/static/default_icon.png" alt="Default Icon">
             {% endif %}
         </div>
         <h2 class="category-title">{{ category.name }}</h2>
