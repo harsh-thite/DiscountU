@@ -7,7 +7,6 @@
 <div class="search-container mb-4">
     <input type="text" id="categorySearch" class="search-input" placeholder="Search categories...">
 </div>
-
 <div class="categories-grid">
     {% for category in categories %}
     <div class="category-card" onclick="window.location.href='{% url 'category_detail' slug=category.slug %}'">
