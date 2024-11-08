@@ -18,7 +18,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True)
     description = models.TextField()
-    icon = models.CharField(max_length=50, help_text="Icon name from Lucide icons")
+    icon = models.ImageField(upload_to='category_images/', null=True, blank=True)
     image = models.ImageField(upload_to='category_images/', null=True, blank=True)  # Add this line
     is_active = models.BooleanField(default=True)
     order = models.IntegerField(default=0, help_text="Display order on the site")

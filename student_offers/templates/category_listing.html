@@ -11,11 +11,11 @@
     {% for category in categories %}
     <div class="category-card" onclick="window.location.href='{% url 'category_detail' slug=category.slug %}'">
         <div class="category-icon">
-            {% if category.icon %}
-                <img src="{{ category.icon.url }}" alt="{{ category.name }}">
+            {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.name }}" style="width: 100px; height: 100px; object-fit: cover;">
             {% else %}
                 <!-- You can display a default image here instead of the letter -->
-                <img src="/static/default_icon.png" alt="Default Icon">
+                <img src="/static/default_icon.png" alt="Default Icon" style="width: 100px; height: 100px; object-fit: cover;">
             {% endif %}
         </div>
         <h2 class="category-title">{{ category.name }}</h2>
