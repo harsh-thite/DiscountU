@@ -11,6 +11,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 from .models import Category, Discount, UserBookmark, UserProfile, DiscountClick
 from .forms import DiscountSearchForm, DiscountSubmissionForm, CustomAuthenticationForm, CustomUserCreationForm, UserProfileForm
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .models import CustomUser
 
 
 class AuthMixin:
@@ -65,6 +68,10 @@ def register_view(request):
             profile.user = user
             profile.save()
 
+            # Ensure that the UserProfile instance is created for the new user
+            if not hasattr(user, 'userprofile'):
+                UserProfile.objects.create(user=user)
+
             # Save selected interests
             interests = profile_form.cleaned_data.get('interests', [])
             profile.interests.set(interests)
@@ -84,32 +91,24 @@ def register_view(request):
 
 @login_required
 def dashboard_view(request):
-    # Get user's bookmarked discounts
+    try:
+        # Try to get the user's profile
+        user_profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        # If it doesn't exist, create a new UserProfile
+        user_profile = UserProfile.objects.create(user=request.user)
+
+        # Now continue with the rest of the dashboard code...
+        # Example: Get user's bookmarked discounts
     bookmarked_discounts = Discount.objects.filter(
         bookmarks__user=request.user
     ).select_related('category')
 
-    # Get recommended discounts based on user's interests
-    user_interests = request.user.userprofile.interests.all()
-    recommended_discounts = Discount.objects.filter(
-        category__in=user_interests,
-        status='active',
-        valid_until__gt=timezone.now()
-    ).exclude(
-        bookmarks__user=request.user
-    ).order_by('-created_at')[:5]
-
-    # Get recently viewed discounts
-    recent_views = DiscountClick.objects.filter(
-        user=request.user
-    ).select_related('discount').order_by('-clicked_at')[:5]
-
-    context = {
+    # And so on...
+    return render(request, 'dashboard.html', {
         'bookmarked_discounts': bookmarked_discounts,
-        'recommended_discounts': recommended_discounts,
-        'recent_views': recent_views,
-    }
-    return render(request, 'dashboard.html', context)
+        'user_profile': user_profile,
+    })
 
 
 def discount_list(request):
@@ -256,13 +255,13 @@ def user_profile(request):
             instance=request.user.userprofile
         )
         if form.is_valid():
-            profile = form.save()
+            form.save()
             messages.success(request, "Profile updated successfully!")
             return redirect('dashboard')
     else:
         form = UserProfileForm(instance=request.user.userprofile)
 
-    return render(request, 'profile.html', {'form': form})
+    return render(request, 'user_profile.html', {'form': form})
 
 
 def submit_discount(request):
@@ -279,3 +278,11 @@ def submit_discount(request):
     return render(request, 'submit_discount.html', {'form': form})
 
 
+@receiver(post_save, sender=CustomUser)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=CustomUser)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()

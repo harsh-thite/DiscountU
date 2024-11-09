@@ -9,6 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class DiscountAdmin(admin.ModelAdmin):
     list_display = ('title', 'company_name', 'category', 'status', 'valid_from', 'valid_until')
     list_filter = ('category', 'status')
+    exclude = ['discount_amount', 'valid_from', 'created_by']
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Discount, DiscountAdmin)
