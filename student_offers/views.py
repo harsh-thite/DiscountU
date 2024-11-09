@@ -12,6 +12,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Category, Discount, UserBookmark, UserProfile, DiscountClick
 from .forms import DiscountSearchForm, DiscountSubmissionForm, CustomAuthenticationForm, CustomUserCreationForm, UserProfileForm
 
+
 class AuthMixin:
     """Mixin for authentication-related functionality"""
 
@@ -276,3 +277,5 @@ def submit_discount(request):
     else:
         form = DiscountSubmissionForm()
     return render(request, 'submit_discount.html', {'form': form})
+
+
