@@ -167,24 +167,27 @@ def category_list(request):
         'categories': categories
     })
 
-
-from django.shortcuts import render, get_object_or_404
-from django.core.paginator import Paginator
-from django.utils import timezone
-from .models import Category, Discount, UserBookmark
-
 def category_detail(request, slug):
-    # Fetch the category by slug
     category = get_object_or_404(Category, slug=slug, is_active=True)
 
-    # Fetch active discounts within the category
+    # Get the filter type from the query parameters (defaults to 'all')
+    filter_type = request.GET.get('filter', 'all')
+
+    # Filter discounts based on selected filter type
     discounts = category.discounts.filter(
         status='active',
         valid_until__gt=timezone.now()
-    ).select_related('category')
+    )
 
-    # Debugging print to verify discounts
-    print(f"Discounts for category '{category.name}':", discounts)
+    if filter_type == 'highest':
+        discounts = discounts.order_by('-discount_percentage')  # Sort by discount percentage
+    elif filter_type == 'newest':
+        discounts = discounts.order_by('-created_at')  # Sort by creation date
+
+    # Pagination setup
+    paginator = Paginator(discounts, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     # Track bookmarked discounts for authenticated users
     bookmarked_discounts = set()
@@ -196,16 +199,11 @@ def category_detail(request, slug):
             ).values_list('discount_id', flat=True)
         )
 
-    # Set up pagination
-    paginator = Paginator(discounts, 9)  # Show 9 discounts per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    # Render the template with the paginated discounts
     return render(request, 'category_detail.html', {
         'category': category,
         'page_obj': page_obj,
-        'bookmarked_discounts': bookmarked_discounts
+        'bookmarked_discounts': bookmarked_discounts,
+        'filter_type': filter_type,
     })
 
 
@@ -298,3 +296,4 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=CustomUser)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
+

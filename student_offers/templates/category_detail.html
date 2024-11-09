@@ -28,13 +28,16 @@
     <!-- Filters -->
     <div class="filters-section">
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search discounts...">
-            <i data-lucide="search"></i>
+            <form method="get">
+                <input type="text" name="search" value="{{ search_query }}" placeholder="Search discounts...">
+                <i data-lucide="search"></i>
+            </form>
         </div>
+    <!-- Filters -->
         <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="highest">Highest Discount</button>
-            <button class="filter-btn" data-filter="newest">Newest</button>
+            <a href="?filter=all" class="filter-btn {% if filter_type == 'all' %}active{% endif %}">All</a>
+            <a href="?filter=highest" class="filter-btn {% if filter_type == 'highest' %}active{% endif %}">Highest Discount</a>
+            <a href="?filter=newest" class="filter-btn {% if filter_type == 'newest' %}active{% endif %}">Newest</a>
         </div>
     </div>
 
