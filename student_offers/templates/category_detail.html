@@ -19,7 +19,7 @@
 
         <div class="category-stats">
             <div class="stat-item">
-                <span class="stat-number">{{ discounts.count }}</span>
+                <span class="stat-number">{{ page_obj.paginator.count }}</span>
                 <span class="stat-label">Available Discounts</span>
             </div>
         </div>
@@ -40,7 +40,7 @@
 
     <!-- Discounts Grid -->
     <div class="discounts-grid">
-        {% for discount in discounts %}
+        {% for discount in page_obj %}
         <div class="discount-card">
             <div class="discount-header">
                 <h3>{{ discount.company_name }}</h3>
@@ -76,6 +76,17 @@
             </div>
         </div>
         {% endfor %}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="prev">Previous</a>
+        {% endif %}
+        <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
