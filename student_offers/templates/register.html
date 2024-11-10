@@ -1,37 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Register{% endblock %}
 {% block header_title %}Create Account{% endblock %}
 
 {% block content %}
-    <div class="auth-container">
+<div class="auth-container">
+    <div class="auth-content">
+        <div class="logo-container">
+            <img src="{% static 'images/logo.png' %}" alt="DiscountU Logo" class="auth-logo">
+        </div>
         <form method="post" class="auth-form">
             {% csrf_token %}
 
+            <h2 class="form-title">Create Account</h2>
+
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" required
-                       class="form-input" placeholder="Choose a username">
+                <input type="text" name="username" id="username" required class="form-input" placeholder="Choose a username">
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" required
-                       class="form-input" placeholder="Enter your email">
+                <input type="email" name="email" id="email" required class="form-input" placeholder="Enter your email">
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" required
-                       class="form-input" placeholder="Choose a password">
+                <input type="password" name="password" id="password" required class="form-input" placeholder="Choose a password">
             </div>
 
-            <button type="submit" class="primary">Create Account</button>
+            <button type="submit" class="btn-primary">Create Account</button>
 
             <p class="text-center mt-4">
-                Already have an account?
-                <a href="{% url 'login' %}" class="text-primary">Login here</a>
+                Already have an account? <a href="{% url 'login' %}" class="text-link">Login here</a>
             </p>
         </form>
     </div>
+</div>
 {% endblock %}

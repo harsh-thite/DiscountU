@@ -1,12 +1,12 @@
 /* Reset and Theme Variables */
 :root {
-  --primary: #1d259b;  /* Primary color */
-  --secondary: #34c759;  /* Secondary color */
-  --background: #ffffff; /* White background */
-  --surface: #ffffff;    /* White surface */
-  --text: #1c1c1e;       /* Dark text for contrast */
-  --text-light: #1d259b;  /* Light text for secondary elements */
-  --border: #d1d1d6;      /* Light border color */
+  --primary: #1d259b;      /* Primary color */
+  --secondary: #34c759;    /* Secondary color */
+  --background: #ffffff;   /* White background */
+  --surface: #ffffff;      /* White surface */
+  --text: #1c1c1e;         /* Dark text for contrast */
+  --text-light: #1d259b;   /* Light text for secondary elements */
+  --border: #d1d1d6;       /* Light border color */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
   --transition-fast: 0.2s ease-in-out;
@@ -24,8 +24,8 @@
 
 /* Body Styling */
 body {
-  background: var(--background);  /* White background */
-  color: var(--text);            /* Dark text for contrast */
+  background: var(--background);
+  color: var(--text);
   line-height: 1.6;
   font-size: 16px;
 }
@@ -37,9 +37,80 @@ body {
   padding: 0 20px;
 }
 
+/* Auth Container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--background);
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: var(--surface);
+  box-shadow: var(--shadow-lg);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.auth-form h2 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--primary);
+  color: var(--surface);
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--text);
+}
+
+.text-link {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.text-link:hover {
+  color: var(--primary);
+}
+
 /* Header Styling */
 .header {
-  background: var(--surface);  /* White background for header */
+  background: var(--surface);
   box-shadow: var(--shadow-sm);
   padding: 1rem 0;
   position: sticky;
@@ -57,7 +128,7 @@ body {
   display: flex;
   align-items: center;
   font-size: 1.5rem;
-  color: var(--primary);  /* Primary color for text */
+  color: var(--primary);
   text-decoration: none;
 }
 
@@ -73,17 +144,16 @@ body {
 }
 
 .nav__link {
-  color: var(--text);  /* Dark text for links */
+  color: var(--text);
   text-decoration: none;
   font-weight: 500;
   transition: color var(--transition-fast);
 }
 
 .nav__link:hover {
-  color: var(--primary);  /* Hover effect using primary color */
+  color: var(--primary);
 }
 
-/* Mobile Menu */
 .nav__mobile-toggle {
   display: none;
   background: none;
@@ -92,6 +162,7 @@ body {
   font-size: 1.5rem;
 }
 
+/* Mobile Menu */
 @media (max-width: 768px) {
   .nav__menu {
     display: none;
@@ -116,172 +187,183 @@ body {
 
 /* Hero Section */
 .hero {
-  background: var(--primary);  /* Primary color for hero */
-  color: var(--surface);       /* White text */
-  padding: 80px 0;
+  background: var(--primary);
+  color: var(--surface);
+  padding: 80px 20px;
   text-align: center;
 }
 
-.hero__title {
-  font-size: 3rem;
+.hero h1 {
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 20px;
-  color: var(--surface);  /* White color */
+  margin-bottom: 10px;
 }
 
-.hero__text {
-  font-size: 1.25rem;
-  margin-bottom: 40px;
-  color: var(--surface);  /* White color */
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .flat-button {
-  background: none;
+  background: var(--primary);
   color: var(--background);
-  padding: 6px 25px;
-  font-size: 1rem;
+  padding: 10px 20px;
+  font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  border: 2px solid var(--primary);
+  border: 1px solid var(--primary);
   border-radius: 30px;
-  transition: all 0.3s ease;
-  margin-top: 20px; /* Add this to give space between the button and text */
+  transition: all 0.4s ease;
 }
 
 .flat-button:hover {
-  background-color: var(--background);
+  background-color: var(--surface);
   color: var(--primary);
 }
-
 
 /* Categories Section */
 .categories {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: space-around;
+  gap: 1.5rem;
   margin-top: 40px;
   flex-wrap: wrap;
+  text-align: center;
 }
 
-.category {
-  background-color: var(--surface);
-  border-radius: 8px;
-  box-shadow: var(--shadow-sm);
-  text-align: center;
-  padding: 20px;
+.category-item {
   flex: 1 1 30%;
+  padding: 20px;
+  background-color: var(--surface);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
   transition: transform 0.3s ease;
 }
 
-.category:hover {
+.category-item:hover {
   transform: translateY(-5px);
 }
 
-.category__title {
-  font-size: 1.5rem;
-  font-weight: 600;
+.category-item img {
+  width: 60px;
+  height: 60px;
   margin-bottom: 10px;
 }
 
-.category__text {
-  font-size: 1rem;
-  color: var(--text-light);
+.category-item h3 {
+  font-size: 1.2rem;
+  color: var(--primary);
 }
 
-/* Cards Section */
-.card {
+/* Featured Discounts Section */
+.featured-discounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 40px;
+}
+
+.discount-card {
   background-color: var(--surface);
-  border-radius: 8px;
-  box-shadow: var(--shadow-sm);
   padding: 20px;
-  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  flex: 1 1 calc(50% - 1rem);
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.card__title {
-  font-size: 1.5rem;
+.discount-card img {
+  width: 60px;
+  height: 60px;
+}
+
+.discount-card h3 {
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  color: var(--primary);
 }
 
-.card__text {
-  font-size: 1rem;
-  margin-bottom: 15px;
+.discount-card p {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-.card__link {
-  color: var(--primary);  /* Primary color for card links */
+.discount-card .cta-button {
+  color: var(--primary);
   font-weight: 500;
-  text-decoration: none;
-}
-
-.card__link:hover {
   text-decoration: underline;
 }
 
-/* Footer Styling */
-.footer {
-  background-color: #f9f9f9;  /* Light background for footer */
+/* Testimonials Section */
+.testimonials {
+  background-color: #f3f3f3;
   padding: 40px 20px;
+  margin-top: 40px;
   text-align: center;
-  color: #666;  /* Light gray text */
-  font-size: 14px;
+  font-style: italic;
+  color: #666;
 }
 
-.footer__links a {
-  color: var(--primary);  /* Primary color for footer links */
+.testimonials p {
+  margin: 10px 0;
+}
+
+.testimonials h4 {
+  color: var(--primary);
+  font-style: normal;
+}
+
+/* Footer */
+.footer {
+  background-color: #f9f9f9;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer-links a {
+  color: var(--primary);
   text-decoration: none;
 }
 
-.footer__links a:hover {
+.footer-links a:hover {
   text-decoration: underline;
 }
 
-.footer__bottom {
-  margin-top: 20px;
-  font-size: 12px;
-  color: #bbb;
-}
-
-/* Responsive Design */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .nav__menu {
-    display: none;
+  .categories,
+  .featured-discounts {
     flex-direction: column;
     gap: 1rem;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--surface);
-    box-shadow: var(--shadow-lg);
-    padding: 1rem;
   }
 
-  .nav__menu--active {
-    display: flex;
+  .hero h1 {
+    font-size: 2rem;
   }
 
-  .nav__mobile-toggle {
-    display: inline-block;
+  .hero p {
+    font-size: 1rem;
   }
+}
 
-  .hero {
-    padding: 50px 0;
-  }
+/* Logo Styling */
+.auth-logo {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
 
-  .hero__title {
-    font-size: 2.5rem;
-  }
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .hero__text {
-    font-size: 1.1rem;
-  }
-
-  .categories {
-    flex-direction: column;
-  }
-
-  .category {
-    flex: 1 1 100%;
-    margin-bottom: 20px;
-  }
+.logo-container {
+  margin-bottom: 0rem;
 }

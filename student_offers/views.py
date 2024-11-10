@@ -14,6 +14,8 @@ from .forms import DiscountSearchForm, DiscountSubmissionForm, CustomAuthenticat
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import CustomUser
+from django.shortcuts import render
+
 
 
 class AuthMixin:
@@ -112,6 +114,7 @@ def dashboard_view(request):
 
 
 def discount_list(request):
+    categories = Category.objects.filter(is_active=True).order_by('order')
     discounts = Discount.objects.filter(
         status='active',
         valid_until__gt=timezone.now()
@@ -149,7 +152,9 @@ def discount_list(request):
     return render(request, 'discount_list.html', {
         'form': form,
         'page_obj': page_obj,
-        'total_count': paginator.count
+        'total_count': paginator.count,
+        'categories': categories,
+        'discounts': discounts,
     })
 
 
@@ -297,3 +302,14 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
+def discount_detail(request, slug):
+    discount = get_object_or_404(Discount, slug=slug, status='active')
+
+    is_bookmarked = False
+    if request.user.is_authenticated:
+        is_bookmarked = UserBookmark.objects.filter(user=request.user, discount=discount).exists()
+
+    return render(request, 'discount_detail.html', {
+        'discount': discount,
+        'is_bookmarked': is_bookmarked,
+    })

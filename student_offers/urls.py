@@ -13,11 +13,11 @@ urlpatterns = [
 
     # Category listing and detail pages
     path('category/', views.category_list, name='category_listing'),
-    # Changed from 'category/' to 'categories/' for listing page
     path('category/<slug:slug>/', views.category_detail, name='category_detail'),
 
-    # Discount and dashboard-related pages
+    # Discount, dashboard, and profile-related pages
     path('discounts/', views.discount_list, name='discount_list'),
+    path('discount/<slug:slug>/', views.discount_detail, name='discount_detail'),  # Changed to <slug:slug>
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('profile/', views.user_profile, name='profile'),
 ]

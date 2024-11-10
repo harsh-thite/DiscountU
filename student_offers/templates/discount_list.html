@@ -4,75 +4,60 @@
 {% block header_title %}Available Discounts{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DiscountU - Student Discounts</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Find Student Discounts Easily</h1>
-        <p>Save more on your favorite brands with student discounts</p>
-        <a href="/category" class="hero__button flat-button">Browse Discounts</a>
-    </section>
+<section class="hero">
+    <h1>Find Student Discounts Easily</h1>
+    <p>Save more on your favorite brands with student discounts</p>
+    <a href="{% url 'category_listing' %}" class="flat-button">Browse Discounts</a>
+</section>
 
-    <!-- Categories Section -->
-    <section id="categories" class="categories">
-        <div class="category-item">
-            <img src="category1.jpg" alt="Food">
-            <h3>Food</h3>
-        </div>
-        <div class="category-item">
-            <img src="category2.jpg" alt="Clothing">
-            <h3>Clothing</h3>
-        </div>
-        <div class="category-item">
-            <img src="category3.jpg" alt="Technology">
-            <h3>Technology</h3>
-        </div>
-    </section>
+<!-- Categories Section -->
+<section id="categories" class="categories container">
+    {% for category in categories %}
+    <div class="category-item">
+        {% if category.image %}
+        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+        {% else %}
+        <img src="default-image.jpg" alt="{{ category.name }}">  <!-- Optional: Placeholder image if no image uploaded -->
+        {% endif %}
+        <h3>{{ category.name }}</h3>
+    </div>
+    {% endfor %}
+</section>
 
-    <!-- Featured Discounts Section -->
-    <section class="featured-discounts">
-        <div class="discount-card">
-            <img src="discount1.jpg" alt="20% Off Food">
-            <h3>20% Off on Food</h3>
-            <p>Valid for students at XYZ Restaurant</p>
-            <a href="#" class="cta-button">Claim Offer</a>
-        </div>
-        <div class="discount-card">
-            <img src="discount2.jpg" alt="10% Off Clothing">
-            <h3>10% Off on Clothing</h3>
-            <p>Get 10% off your next purchase at ABC Store</p>
-            <a href="#" class="cta-button">Claim Offer</a>
-        </div>
-    </section>
+<!-- Featured Discounts Section -->
+<section class="featured-discounts container">
+    {% for discount in discounts %}
+    <div class="discount-card">
+        {% if discount.company_logo %}
+        <img src="{{ discount.company_logo }}" alt="{{ discount.title }}">
+        {% else %}
+        <img src="default-discount.jpg" alt="{{ discount.title }}">  <!-- Optional: Placeholder if no logo URL -->
+        {% endif %}
+        <h3>{{ discount.title }}</h3>
+        <p>{{ discount.description }}</p>
+        <a href="{% url 'discount_detail' discount.slug %}" class="cta-button">Claim Offer</a>
+    </div>
+    {% endfor %}
+</section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="testimonial">
-            <p>"This website helped me save so much on my student purchases!"</p>
-            <h4>- Student A</h4>
-        </div>
-        <div class="testimonial">
-            <p>"I found discounts I never knew existed. Very helpful!"</p>
-            <h4>- Student B</h4>
-        </div>
-    </section>
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="testimonial">
+        <p>"This website helped me save so much on my student purchases!"</p>
+        <h4>- Student A</h4>
+    </div>
+    <div class="testimonial">
+        <p>"I found discounts I never knew existed. Very helpful!"</p>
+        <h4>- Student B</h4>
+    </div>
+</section>
 
-    <!-- Footer Section -->
-    <footer class="footer">
-        <p>&copy; 2024 DiscountU. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-        </div>
-    </footer>
-</body>
-</html>
+<!-- Footer Section -->
+<footer class="footer">
+    <p>&copy; 2024 DiscountU. All rights reserved.</p>
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </div>
+</footer>
 
 {% endblock %}

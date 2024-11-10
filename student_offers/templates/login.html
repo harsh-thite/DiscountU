@@ -1,10 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Login{% endblock %}
 {% block header_title %}Welcome Back{% endblock %}
 
 {% block content %}
-    <div class="auth-container">
+<div class="auth-container">
+    <div class="auth-content">
+        <div class="logo-container">
+            <img src="{% static 'images/logo.png' %}" alt="DiscountU Logo" class="auth-logo">
+        </div>
+
         <form method="post" class="auth-form">
             {% csrf_token %}
             {% if messages %}
@@ -17,6 +23,8 @@
                 </div>
             {% endif %}
 
+            <h2 class="form-title">Login</h2>
+
             <div class="form-group">
                 <label for="id_username">Username</label>
                 {{ form.username }}
@@ -27,12 +35,12 @@
                 {{ form.password }}
             </div>
 
-            <button type="submit" class="primary">Login</button>
+            <button type="submit" class="btn-primary">Login</button>
 
             <p class="text-center mt-4">
-                Don't have an account?
-                <a href="{% url 'register' %}" class="text-primary">Register here</a>
+                Don't have an account? <a href="{% url 'register' %}" class="text-link">Register here</a>
             </p>
         </form>
     </div>
+</div>
 {% endblock %}
