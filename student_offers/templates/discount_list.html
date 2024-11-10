@@ -30,11 +30,8 @@
     <div class="discount-card">
         {% if discount.company_logo %}
         <img src="{{ discount.company_logo }}" alt="{{ discount.title }}">
-        {% else %}
-        <img src="default-discount.jpg" alt="{{ discount.title }}">  <!-- Optional: Placeholder if no logo URL -->
         {% endif %}
         <h3>{{ discount.title }}</h3>
-        <p>{{ discount.description }}</p>
         <a href="{% url 'discount_detail' discount.slug %}" class="cta-button">Claim Offer</a>
     </div>
     {% endfor %}
@@ -52,12 +49,5 @@
     </div>
 </section>
 
-<!-- Footer Section -->
-<footer class="footer">
-    <p>&copy; 2024 DiscountU. All rights reserved.</p>
-    <div class="footer-links">
-        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-    </div>
-</footer>
 
 {% endblock %}
