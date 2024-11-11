@@ -15,7 +15,6 @@ urlpatterns = [
     path('category/', views.category_list, name='category_listing'),
     path('category/<slug:slug>/', views.category_detail, name='category_detail'),
 
-    # Discount, dashboard, and profile-related pages
     path('discounts/', views.discount_list, name='discount_list'),
     path('discount/<slug:slug>/', views.discount_detail, name='discount_detail'),  # Changed to <slug:slug>
     path('dashboard/', views.dashboard_view, name='dashboard'),
