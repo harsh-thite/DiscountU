@@ -74,7 +74,7 @@ class Discount(models.Model):
         validators=[MinValueValidator(0)]
     )
 
-    # Categories and tags
+    # Categories and Tags
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
