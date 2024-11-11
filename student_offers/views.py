@@ -185,7 +185,7 @@ def category_detail(request, slug):
     )
 
     if filter_type == 'highest':
-        discounts = discounts.order_by('-discount_percentage')  # Sort by discount percentage
+        discounts = discounts.order_by('-discount_percentage')
     elif filter_type == 'newest':
         discounts = discounts.order_by('-created_at')  # Sort by creation date
 
