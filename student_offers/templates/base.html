@@ -42,7 +42,7 @@
                         <a href="{% url 'profile' %}" class="nav__link btn-nav">Profile</a>
                         <form action="{% url 'logout' %}" method="post" style="display: inline;">
                             {% csrf_token %}
-                            <button type="submit" class="nav__link btn-nav nav__logout-btn btn-logout">Logout</button>
+                            <button type="submit" class="nav__link btn-nav">Logout</button>
                         </form>
 
                     {% else %}

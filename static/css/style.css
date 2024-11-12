@@ -84,7 +84,7 @@ body {
 
 .btn-primary {
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.5rem;
   background-color: var(--primary);
   color: var(--surface);
   border: none;
@@ -138,6 +138,7 @@ body {
   margin-right: 0.5rem;
 }
 
+/* Nav Button Styling */
 .nav__menu {
   display: flex;
   gap: 1.5rem;
@@ -150,9 +151,35 @@ body {
   transition: color var(--transition-fast);
 }
 
-.nav__link:hover {
-  color: var(--primary);
+/* Unified Nav Button Styling */
+.btn-nav,
+form .btn-nav,
+.nav__menu .btn-nav {
+    background-color: var(--primary); /* Button background color */
+    color: var(--surface); /* Text color */
+    padding: 0.4rem 0.8rem; /* Adjust padding for uniform look */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-weight: 600; /* Bold text */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    cursor: pointer; /* Pointer cursor */
+    text-decoration: none; /* Remove underline for links */
+    display: inline-block; /* Uniform display */
+    font-size: 0.9rem; /* Ensure consistent font size */
+    line-height: normal; /* Adjust line height for uniform look */
 }
+
+.btn-nav:hover,
+form .btn-nav:hover,
+.nav__menu .btn-nav:hover {
+    background-color: var(--text); /* Darker shade on hover */
+    transform: scale(1.05); /* Slight scale effect */
+}
+
+form .btn-nav {
+    appearance: none; /* Remove any browser-specific button styles */
+}
+
 
 .nav__mobile-toggle {
   display: none;
