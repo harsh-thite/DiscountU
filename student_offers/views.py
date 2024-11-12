@@ -313,3 +313,7 @@ def discount_detail(request, slug):
         'discount': discount,
         'is_bookmarked': is_bookmarked,
     })
+
+#Contact Page
+def contact(request):
+    return render(request, 'contact.html')
