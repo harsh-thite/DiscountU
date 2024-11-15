@@ -314,6 +314,6 @@ def discount_detail(request, slug):
         'is_bookmarked': is_bookmarked,
     })
 
-#Contact
+#Contact Page
 def contact(request):
     return render(request, 'contact.html')
