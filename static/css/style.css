@@ -172,7 +172,7 @@ form .btn-nav,
 .btn-nav:hover,
 form .btn-nav:hover,
 .nav__menu .btn-nav:hover {
-    background-color: var(--text); /* Darker shade on hover */
+    background-color: var(--text); /* Darker shade hover */
     transform: scale(1.05); /* Slight scale effect */
 }
 
