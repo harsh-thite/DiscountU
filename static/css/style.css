@@ -163,7 +163,7 @@ form .btn-nav,
     font-weight: 600; /* Bold text */
     transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
     cursor: pointer; /* Pointer cursor */
-    text-decoration: none; /* Remove underline for links */
+    text-decoration: none; /* Remove underline from links */
     display: inline-block; /* Uniform display */
     font-size: 0.9rem; /* Ensure consistent font size */
     line-height: normal; /* Adjust line height for uniform look */
