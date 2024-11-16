@@ -245,7 +245,7 @@ def track_discount_click(request, discount_id):
     try:
         discount = get_object_or_404(Discount, id=discount_id)
 
-        # Record the click
+        # Record  click
         DiscountClick.objects.create(
             discount=discount,
             user=request.user if request.user.is_authenticated else None,
