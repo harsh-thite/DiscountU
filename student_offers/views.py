@@ -97,7 +97,7 @@ def dashboard_view(request):
         # Try to get the user's profile
         user_profile = request.user.userprofile
     except UserProfile.DoesNotExist:
-        # If it doesn't exist, create a new UserProfile
+        # If it doesn't exist, create new UserProfile
         user_profile = UserProfile.objects.create(user=request.user)
 
         # Now continue with the rest of the dashboard code...
