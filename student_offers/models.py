@@ -19,7 +19,7 @@ class Category(models.Model):
     slug = models.SlugField(max_length=100, unique=True, blank=True)
     description = models.TextField()
     icon = models.ImageField(upload_to='category_images/', null=True, blank=True)
-    image = models.ImageField(upload_to='category_images/', null=True, blank=True)  # Add this line
+    image = models.ImageField(upload_to='category_images/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     order = models.IntegerField(default=0, help_text="Display order on the site")
     created_at = models.DateTimeField(auto_now_add=True)
