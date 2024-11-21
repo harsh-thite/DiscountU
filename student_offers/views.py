@@ -70,7 +70,7 @@ def register_view(request):
             profile.user = user
             profile.save()
 
-            # Ensure that the UserProfile instance is created for  new user
+            # Ensure that the UserProfile instance is created for new user
             if not hasattr(user, 'userprofile'):
                 UserProfile.objects.create(user=user)
 
