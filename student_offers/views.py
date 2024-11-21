@@ -74,7 +74,7 @@ def register_view(request):
             if not hasattr(user, 'userprofile'):
                 UserProfile.objects.create(user=user)
 
-            # Save selected interests
+            # Save the selected interests
             interests = profile_form.cleaned_data.get('interests', [])
             profile.interests.set(interests)
 
