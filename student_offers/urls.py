@@ -12,7 +12,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
     path('contact/', views.contact, name='contact'),
 
-    # Category listing and detail pages
+    # Category listing and detail page
     path('category/', views.category_list, name='category_listing'),
     path('category/<slug:slug>/', views.category_detail, name='category_detail'),
 
