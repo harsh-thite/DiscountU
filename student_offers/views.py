@@ -100,7 +100,7 @@ def dashboard_view(request):
         # If it doesn't exist, create new UserProfile
         user_profile = UserProfile.objects.create(user=request.user)
 
-        # Now continue with the rest of the dashboard code.
+        # Continue with the rest of the dashboard code.
         # Example: Get user's bookmarked discounts
     bookmarked_discounts = Discount.objects.filter(
         bookmarks__user=request.user
