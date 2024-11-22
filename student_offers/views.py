@@ -194,7 +194,7 @@ def category_detail(request, slug):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    # Track bookmarked discounts for authenticated users
+    # Track bookmarked discounts for  users
     bookmarked_discounts = set()
     if request.user.is_authenticated:
         bookmarked_discounts = set(
