@@ -175,7 +175,7 @@ def category_list(request):
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug, is_active=True)
 
-    # Get the filter type from the query parameters (defaults to 'all')
+    # Get the filter type from the query parameters (default to 'all')
     filter_type = request.GET.get('filter', 'all')
 
     # Filter discounts based on selected filter type
