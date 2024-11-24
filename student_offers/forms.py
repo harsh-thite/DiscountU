@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile, Discount  # Corrected import for Discount
+from .models import UserProfile, Discount  # Corrected import for
 
 class DiscountSearchForm(forms.Form):
     query = forms.CharField(max_length=100, required=False, label='Search Discounts')
