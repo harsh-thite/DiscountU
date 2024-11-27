@@ -5,7 +5,7 @@ from pathlib import Path
 # Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Secret Key (ensure you replace with a secure key in production)
+# Secret Key (ensure you replace with a secure key in the production)
 SECRET_KEY = 'your-secret-key'
 
 # Debug mode
