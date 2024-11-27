@@ -98,7 +98,7 @@ USE_L10N = True
 # Use timezone-aware datetime
 USE_TZ = True
 
-# Static files (CSS, JavaScript and Images)
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
