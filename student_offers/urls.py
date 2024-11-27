@@ -17,7 +17,7 @@ urlpatterns = [
     path('category/<slug:slug>/', views.category_detail, name='category_detail'),
 
     path('discounts/', views.discount_list, name='discount_list'),
-    path('discount/<slug:slug>/', views.discount_detail, name='discount_detail'),  # Changed to <slug:slug>
+    path('discount/<slug:slug>/', views.discount_detail, name='discount_detail'),  # Changed to < slug:slug >
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('profile/', views.user_profile, name='profile'),
 ]
