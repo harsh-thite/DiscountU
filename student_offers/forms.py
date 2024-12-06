@@ -17,7 +17,7 @@ class CustomUserCreationForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['interests']  #Adjust based on actual fields in UserProfile
+        fields = ['interests']  #Adjust based on the actual fields in UserProfile
 
 class DiscountSubmissionForm(forms.ModelForm):
     class Meta:
