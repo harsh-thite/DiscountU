@@ -12,7 +12,7 @@
     <div class="category-card" onclick="window.location.href='{% url 'category_detail' slug=category.slug %}'">
         <div class="category-icon">
             {% if category.icon %}
-                <!-- Display icon image  each category here -->
+                <!-- Display icon image each category here -->
                 <img src="{{ category.icon.url }}" alt="{{ category.name }}" style="width: 100px; height: 100px; object-fit: cover;">
             {% else %}
                 <!-- Display a default icon if no icon-image available -->
