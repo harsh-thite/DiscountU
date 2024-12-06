@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ discount.title }} - Discount Details{% endblock %}
+
+{% block content %}
+<div class="discount-detail-container">
+    <div class="discount-header">
+        <h1>{{ discount.title }}</h1>
+        <h2>{{ discount.company_name }}</h2>
+    </div>
+
+    <!-- Display discount percentage if available -->
+    {% if discount.discount_percentage %}
+    <div class="discount-percentage">
+        <span>{{ discount.discount_percentage }}% OFF</span>
+    </div>
+    {% endif %}
+
+    <!-- Discount Description -->
+    <div class="discount-description">
+        <p>{{ discount.description }}</p>
+    </div>
+
+    <!-- Requirements for the Discount -->
+    <div class="discount-requirements">
+        <h3>Requirements</h3>
+        <p>{{ discount.requirements }}</p>
+    </div>
+
+    <!-- Discount Validity -->
+    <div class="discount-validity">
+        <h4>Valid Until:</h4>
+        <p>{{ discount.valid_until|date:"F j, Y" }}</p>
+    </div>
+
+    <!-- Get Discount Button -->
+    <div class="discount-actions">
+        <a href="{{ discount.website_url }}" target="_blank" class="primary-button">Get Discount</a>
+    </div>
+
+    <!-- Bookmark Button -->
+    {% if user.is_authenticated %}
+    <button class="bookmark-btn" data-discount-id="{{ discount.id }}">
+        {% if discount.is_bookmarked %}
+        <i data-lucide="bookmark-fill"></i> Unbookmark
+        {% else %}
+        <i data-lucide="bookmark"></i> Bookmark
+        {% endif %}
+    </button>
+    {% endif %}
+</div>
+{% endblock %}
