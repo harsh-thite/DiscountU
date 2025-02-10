@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 
+
 # Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,10 +10,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'your-secret-key'
 
 # Debug mode
-DEBUG = True
+DEBUG = False
 
 # Allowed hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Installed applications
 INSTALLED_APPS = [
