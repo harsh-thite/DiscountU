@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: my-django-app
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:////var/lib/sqlite/db.sqlite3
+    disk:
+      name: sqlite-data
+      mountPath: /var/lib/sqlite
+      sizeGB: 1
